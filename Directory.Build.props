@@ -1,0 +1,22 @@
+<Project>
+  <!-- Shared settings for every project in the solution -->
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>latest</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <!-- CS1591: missing XML comment on public member. Only documented members show descriptions in Swagger. -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      AutoMapper 14.0.0 is the last MIT-licensed version (15+ requires a license key).
+      GHSA-rvv3-g6hj-g44x is a stack overflow when mapping self-referencing object graphs thousands of levels deep.
+      It does not apply here: every DTO is flat, entities are never mapped recursively,
+      and System.Text.Json limits incoming JSON depth to 64. See README "Security notes".
+    -->
+    <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-rvv3-g6hj-g44x" />
+  </ItemGroup>
+</Project>

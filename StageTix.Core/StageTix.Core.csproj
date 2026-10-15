@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Core is the heart of the system: Entities, Enums, DTOs, Interfaces and Exceptions.
+    It must NOT reference any other project or any external NuGet package.
+  -->
+
+</Project>
