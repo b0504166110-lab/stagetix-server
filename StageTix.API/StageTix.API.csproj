@@ -5,6 +5,11 @@
     References Service and Core. References Data ONLY to register its services in Program.cs.
   -->
 
+  <PropertyGroup>
+    <!-- Development secrets live outside the repo: %APPDATA%\Microsoft\UserSecrets\<id>\secrets.json -->
+    <UserSecretsId>009ef80a-423d-4544-a3a8-21b3e1e514e7</UserSecretsId>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\StageTix.Service\StageTix.Service.csproj" />
     <ProjectReference Include="..\StageTix.Core\StageTix.Core.csproj" />

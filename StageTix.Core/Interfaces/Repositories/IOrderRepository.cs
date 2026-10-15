@@ -20,9 +20,6 @@ public interface IOrderRepository
     /// <summary>Tracked, with seats loaded, for cancelling.</summary>
     Task<Order?> GetForUpdateAsync(int id, CancellationToken cancellationToken);
 
-    /// <summary>Tracked, with seats loaded: every active order of a show, for cancelling the show.</summary>
-    Task<IReadOnlyList<Order>> GetActiveByShowForUpdateAsync(int showId, CancellationToken cancellationToken);
-
     /// <summary>Marks the order for insertion.</summary>
     void Add(Order order);
 }

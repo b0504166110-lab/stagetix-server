@@ -17,6 +17,11 @@ public interface IShowRepository
     /// <summary>Tracked, for updates.</summary>
     Task<Show?> GetForUpdateAsync(int id, CancellationToken cancellationToken);
 
+    /// <summary>
+    /// Tracked, for cancelling a show: the show with its active orders and each order's seats.
+    /// </summary>
+    Task<Show?> GetWithActiveOrdersForUpdateAsync(int id, CancellationToken cancellationToken);
+
     Task<bool> HasOrdersAsync(int showId, CancellationToken cancellationToken);
 
     /// <summary>Marks the show (and its seats) for insertion.</summary>
