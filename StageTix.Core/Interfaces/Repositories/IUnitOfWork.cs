@@ -17,4 +17,7 @@ public interface IUnitOfWork
     /// rolls back if it throws. Used so the business check and the save happen together.
     /// </summary>
     Task<T> ExecuteInTransactionAsync<T>(Func<CancellationToken, Task<T>> work, CancellationToken cancellationToken);
+
+    /// <inheritdoc cref="ExecuteInTransactionAsync{T}"/>
+    Task ExecuteInTransactionAsync(Func<CancellationToken, Task> work, CancellationToken cancellationToken);
 }

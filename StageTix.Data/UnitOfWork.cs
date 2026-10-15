@@ -42,4 +42,11 @@ public class UnitOfWork(AppDbContext db) : IUnitOfWork
         await transaction.CommitAsync(cancellationToken);
         return result;
     }
+
+    public Task ExecuteInTransactionAsync(Func<CancellationToken, Task> work, CancellationToken cancellationToken) =>
+        ExecuteInTransactionAsync(async ct =>
+        {
+            await work(ct);
+            return true;
+        }, cancellationToken);
 }
