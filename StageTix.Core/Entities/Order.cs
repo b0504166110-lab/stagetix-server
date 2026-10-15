@@ -23,6 +23,9 @@ public class Order
     /// <summary>UTC.</summary>
     public DateTime CreatedAt { get; set; }
 
+    /// <summary>UTC. Set when an admin cancels the order or its show.</summary>
+    public DateTime? CancelledAt { get; set; }
+
     /// <summary>Many-to-many: the seats bought in this order.</summary>
     public ICollection<ShowSeat> Seats { get; set; } = new List<ShowSeat>();
 }

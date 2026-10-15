@@ -31,4 +31,16 @@ public class Show
 
     /// <summary>One-to-many: a show has many orders.</summary>
     public ICollection<Order> Orders { get; set; } = new List<Order>();
+
+    /// <summary>Adds one available seat for every position in the hall.</summary>
+    public void GenerateSeats(int rows, int seatsPerRow)
+    {
+        for (var row = 1; row <= rows; row++)
+        {
+            for (var number = 1; number <= seatsPerRow; number++)
+            {
+                Seats.Add(new ShowSeat { Row = row, Number = number, Status = SeatStatus.Available });
+            }
+        }
+    }
 }

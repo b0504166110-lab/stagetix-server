@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using StageTix.Core.Interfaces.Repositories;
 using StageTix.Data.Repositories;
+using StageTix.Data.Seed;
 
 namespace StageTix.Data;
 
@@ -23,6 +24,8 @@ public static class DataServiceCollectionExtensions
         services.AddScoped<IShowRepository, ShowRepository>();
         services.AddScoped<IShowSeatRepository, ShowSeatRepository>();
         services.AddScoped<IOrderRepository, OrderRepository>();
+
+        services.AddScoped<DataSeeder>();
 
         return services;
     }

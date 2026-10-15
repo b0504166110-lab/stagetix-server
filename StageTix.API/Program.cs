@@ -1,4 +1,6 @@
 using StageTix.Data;
+using StageTix.Data.Seed;
+using StageTix.Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,9 +11,13 @@ var connectionString = builder.Configuration.GetConnectionString("Default")
         "or the ConnectionStrings__Default environment variable (production).");
 
 builder.Services.AddDataLayer(connectionString);
+builder.Services.AddServiceLayer(builder.Configuration);
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+// Apply migrations and seed demo data before accepting requests.
+await app.Services.InitializeDatabaseAsync(builder.Configuration.GetValue("Database:SeedDemoData", true));
 
 app.MapControllers();
 

@@ -25,5 +25,8 @@ public class OrderResponse
     /// <summary>UTC.</summary>
     public DateTime CreatedAt { get; set; }
 
+    /// <summary>UTC. Null while the order is active.</summary>
+    public DateTime? CancelledAt { get; set; }
+
     public IReadOnlyList<OrderSeatResponse> Seats { get; set; } = [];
 }
