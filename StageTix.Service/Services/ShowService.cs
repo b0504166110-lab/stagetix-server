@@ -33,6 +33,10 @@ public class ShowService(
             query.Status = ShowStatus.OnSale;
         }
 
+        logger.LogDebug(
+            "Listing shows: search={Search} category={Category} status={Status} sort={SortBy} {SortDirection} page={Page} size={PageSize}",
+            query.Search, query.Category, query.Status, query.SortBy, query.SortDirection, query.Page, query.PageSize);
+
         var page = await showRepository.GetPagedAsync(query, cancellationToken);
 
         var showIds = page.Items.Select(s => s.Id).ToList();

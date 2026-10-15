@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Update="nlog.config" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\StageTix.Service\StageTix.Service.csproj" />
     <ProjectReference Include="..\StageTix.Core\StageTix.Core.csproj" />
     <ProjectReference Include="..\StageTix.Data\StageTix.Data.csproj" />
