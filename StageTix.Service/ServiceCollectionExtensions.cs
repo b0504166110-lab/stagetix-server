@@ -31,6 +31,7 @@ public static class ServiceCollectionExtensions
         // (A Singleton must never hold a Scoped dependency — it would keep one DbContext forever,
         // shared by all requests and threads.)
         services.AddScoped<IShowService, ShowService>();
+        services.AddScoped<IOrderService, OrderService>();
 
         return services;
     }
