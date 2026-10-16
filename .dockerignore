@@ -1,0 +1,19 @@
+# Keep the Docker build context small and free of secrets and build output.
+**/bin/
+**/obj/
+**/logs/
+**/TestResults/
+.vs/
+.vscode/
+.idea/
+.git/
+.gitignore
+.gitattributes
+**/*.user
+**/secrets.json
+.env
+.env.*
+Dockerfile
+.dockerignore
+*.md
+StageTix.Tests/

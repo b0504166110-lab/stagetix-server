@@ -17,7 +17,8 @@ public static class DataServiceCollectionExtensions
     {
         ArgumentException.ThrowIfNullOrWhiteSpace(connectionString);
 
-        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+        var npgsqlConnectionString = PostgresConnectionString.Normalize(connectionString);
+        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(npgsqlConnectionString));
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<IUserRepository, UserRepository>();

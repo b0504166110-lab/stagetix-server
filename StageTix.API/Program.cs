@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Options;
 using NLog;
 using NLog.Web;
 using StageTix.API.Extensions;
@@ -39,6 +40,10 @@ try
     builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>("database");
 
     var app = builder.Build();
+
+    // Validate all options (e.g. a missing Jwt:SigningKey) BEFORE touching the database,
+    // so a configuration mistake is reported clearly instead of as a database error.
+    app.Services.GetRequiredService<IStartupValidator>().Validate();
 
     // Apply migrations and seed demo data before accepting requests.
     await app.Services.InitializeDatabaseAsync(builder.Configuration.GetValue("Database:SeedDemoData", true));
