@@ -46,7 +46,9 @@ try
     app.Services.GetRequiredService<IStartupValidator>().Validate();
 
     // Apply migrations and seed demo data before accepting requests.
-    await app.Services.InitializeDatabaseAsync(builder.Configuration.GetValue("Database:SeedDemoData", true));
+    await app.Services.InitializeDatabaseAsync(
+        builder.Configuration.GetValue("Database:SeedDemoData", true),
+        builder.Configuration.GetValue("Database:ResetDemoData", false));
 
     // Pipeline order matters:
     // 1. The error handler is first, so it catches exceptions from everything after it.

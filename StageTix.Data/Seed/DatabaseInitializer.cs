@@ -10,9 +10,10 @@ public static class DatabaseInitializer
     /// Applies pending migrations and, if requested, seeds demo data into an empty database.
     /// Called once at startup, so the system runs without any manual database step
     /// (locally and in the cloud).
+    /// <paramref name="resetDemoData"/> deletes ALL data first and seeds again; turn it on for one deploy only.
     /// </summary>
     public static async Task InitializeDatabaseAsync(
-        this IServiceProvider services, bool seedDemoData, CancellationToken cancellationToken = default)
+        this IServiceProvider services, bool seedDemoData, bool resetDemoData = false, CancellationToken cancellationToken = default)
     {
         // DbContext is Scoped, so it must be resolved inside a scope (there is no HTTP request yet).
         await using var scope = services.CreateAsyncScope();
@@ -30,7 +31,7 @@ public static class DatabaseInitializer
 
         if (seedDemoData)
         {
-            await provider.GetRequiredService<DataSeeder>().SeedAsync(cancellationToken);
+            await provider.GetRequiredService<DataSeeder>().SeedAsync(resetDemoData, cancellationToken);
         }
     }
 }

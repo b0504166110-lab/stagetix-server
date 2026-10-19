@@ -25,8 +25,17 @@ public class DataSeeder(
 
     private readonly HallOptions _hall = hallOptions.Value;
 
-    public async Task SeedAsync(CancellationToken cancellationToken)
+    public async Task SeedAsync(bool reset, CancellationToken cancellationToken)
     {
+        if (reset)
+        {
+            // Order matters: orders reference shows and users, and seats are deleted with their show.
+            await db.Orders.ExecuteDeleteAsync(cancellationToken);
+            await db.Shows.ExecuteDeleteAsync(cancellationToken);
+            await db.Users.ExecuteDeleteAsync(cancellationToken);
+            logger.LogWarning("Database:ResetDemoData is on: all data was deleted and the demo data is seeded again");
+        }
+
         if (await db.Users.AnyAsync(cancellationToken))
         {
             logger.LogDebug("Database already contains data; demo seed skipped");
@@ -151,31 +160,31 @@ public class DataSeeder(
 
         var data = new (string Title, string Artist, string Description, ShowCategory Category, int InDays, decimal Price, ShowStatus Status)[]
         {
-            ("ערב להיטים — כמעט אזל!", "להקת הגליל", "ערב שירים אהובים עם להקת הגליל. נשארו מקומות אחרונים.", ShowCategory.Music, 5, 180, ShowStatus.OnSale),
-            ("צחוק עד הבוקר", "יואב שמש", "מופע סטנדאפ חדש על החיים בעיר הגדולה.", ShowCategory.StandUp, 7, 120, ShowStatus.OnSale),
-            ("החלום של ליל קיץ", "תיאטרון הבמה הצעירה", "עיבוד מודרני ומצחיק לקומדיה הקלאסית.", ShowCategory.Theater, 9, 150, ShowStatus.OnSale),
-            ("הדובי שאהב לשיר", "תיאטרון הכפית", "הצגה מוזיקלית לגילאי 3–8.", ShowCategory.Kids, 4, 60, ShowStatus.OnSale),
-            ("ג'אז בחצות", "רביעיית הנמל", "ערב ג'אז אינטימי עם אלתורים וקלאסיקות.", ShowCategory.Music, 12, 140, ShowStatus.OnSale),
-            ("אמא, אני בטלוויזיה", "שירה אדמון", "סטנדאפ על משפחה, ילדים וקבוצות וואטסאפ.", ShowCategory.StandUp, 14, 110, ShowStatus.OnSale),
-            ("המלט — גרסה קצרה", "תיאטרון הגשר", "שעה וחצי של טרגדיה, חרבות ושאלות גדולות.", ShowCategory.Theater, 16, 170, ShowStatus.OnSale),
-            ("הקוסם מארץ הקסמים", "להקת ניצנים", "מחזמר צבעוני לכל המשפחה.", ShowCategory.Kids, 11, 70, ShowStatus.OnSale),
-            ("שירי ים ומדבר", "תזמורת חוף הים", "מסע מוזיקלי בין הים התיכון למדבר.", ShowCategory.Music, 19, 160, ShowStatus.OnSale),
-            ("לילה של אלתורים", "קבוצת אין תסריט", "הקהל בוחר — השחקנים ממציאים.", ShowCategory.StandUp, 21, 100, ShowStatus.OnSale),
-            ("בית בובות", "תיאטרון האור", "דרמה משפחתית עוצמתית.", ShowCategory.Theater, 23, 160, ShowStatus.OnSale),
-            ("מסיבת פיג'מות", "רוני וטלי", "שירים וריקודים לקטנטנים.", ShowCategory.Kids, 18, 55, ShowStatus.OnSale),
-            ("רוק ישראלי — מחווה", "להקת המעיין", "הלהיטים הגדולים של הרוק המקומי.", ShowCategory.Music, 26, 190, ShowStatus.OnSale),
-            ("סטנדאפ בעברית קלה", "מיכאל ברק", "מופע לעולים חדשים וגם לוותיקים.", ShowCategory.StandUp, 28, 90, ShowStatus.OnSale),
-            ("קומדיה של טעויות", "תיאטרון הבמה הצעירה", "תאומים, בלבול ושעה וחצי של צחוק.", ShowCategory.Theater, 30, 140, ShowStatus.OnSale),
-            ("המדען הקטן", "מעבדת הקסם", "ניסויים מדעיים על הבמה לגילאי 6–12.", ShowCategory.Kids, 25, 65, ShowStatus.OnSale),
-            ("קלאסיקה לאור נרות", "אנסמבל המיתרים", "רביעיית מיתרים מנגנת יצירות מוכרות.", ShowCategory.Music, 33, 200, ShowStatus.OnSale),
-            ("אבא בהפסקה", "דני גל", "סטנדאפ על אבהות, עבודה ומילואים.", ShowCategory.StandUp, 35, 115, ShowStatus.OnSale),
-            ("הנסיך הקטן", "תיאטרון הכפית", "עיבוד בימתי פיוטי לסיפור האהוב.", ShowCategory.Theater, 38, 130, ShowStatus.OnSale),
-            ("הרפתקה בג'ונגל", "להקת ניצנים", "הצגה אינטראקטיבית עם בובות ענק.", ShowCategory.Kids, 40, 60, ShowStatus.OnSale),
-            ("ערב שירי משוררים", "הדס ורון", "שירה מולחנת בליווי פסנתר.", ShowCategory.Music, 45, 150, ShowStatus.OnSale),
+            ("ערב ניגונים — כמעט אזל!", "מקהלת שירת הלויים", "ערב ניגוני חסידות ושירי נשמה. נשארו מקומות אחרונים.", ShowCategory.Music, 5, 180, ShowStatus.OnSale),
+            ("צוחקים בכבוד", "ר' יענקל שמש", "ערב הומור נקי ומשפחתי על החיים בשכונה.", ShowCategory.StandUp, 7, 120, ShowStatus.OnSale),
+            ("יוסף ואחיו", "תיאטרון בית יעקב", "מחזה מרגש על פי פרשת וישב. לנשים ולבנות.", ShowCategory.Theater, 9, 150, ShowStatus.OnSale),
+            ("שבת המלכה", "תיאטרון הכפית", "הצגה מוזיקלית על ההכנות לשבת, לגילאי 3–8.", ShowCategory.Kids, 4, 60, ShowStatus.OnSale),
+            ("ערב חזנות", "מקהלת בית הכנסת הגדול", "תפילות ופיוטים בביצוע חזנים ומקהלה.", ShowCategory.Music, 12, 140, ShowStatus.OnSale),
+            ("אמא, יש לנו אורחים", "שרה'לה גולד", "ערב הומור לנשים על משפחה, ילדים והכנות לשבת.", ShowCategory.StandUp, 14, 110, ShowStatus.OnSale),
+            ("דונה גרציה", "תיאטרון הגשר", "סיפורה של האישה האמיצה שהצילה את אנוסי ספרד ופורטוגל.", ShowCategory.Theater, 16, 170, ShowStatus.OnSale),
+            ("שלמה המלך והדבורה", "להקת ניצנים", "מחזמר צבעוני לכל המשפחה על פי המדרש.", ShowCategory.Kids, 11, 70, ShowStatus.OnSale),
+            ("ממזרח וממערב", "תזמורת קול ישראל", "מסע מוזיקלי בין פיוטי תימן, מרוקו ואשכנז.", ShowCategory.Music, 19, 160, ShowStatus.OnSale),
+            ("לילה של סיפורים", "המגיד מירושלים", "סיפורי צדיקים מרתקים ומצחיקים לכל המשפחה.", ShowCategory.StandUp, 21, 100, ShowStatus.OnSale),
+            ("חנה ושבעת בניה", "תיאטרון האור", "דרמה עוצמתית מימי החשמונאים. לנשים ולבנות.", ShowCategory.Theater, 23, 160, ShowStatus.OnSale),
+            ("מסיבת חנוכה", "דודה חני", "שירים, ריקודים וסביבונים לקטנטנים.", ShowCategory.Kids, 18, 55, ShowStatus.OnSale),
+            ("זמירות שבת", "להקת המעיין", "זמירות השבת האהובות בעיבודים חדשים.", ShowCategory.Music, 26, 190, ShowStatus.OnSale),
+            ("הומור בעברית קלה", "מיכאל ברק", "מופע לעולים חדשים וגם לוותיקים.", ShowCategory.StandUp, 28, 90, ShowStatus.OnSale),
+            ("מגילת אסתר — המחזה", "תיאטרון הבמה הצעירה", "פורים על הבמה: תחפושות, הפתעות ושעה וחצי של צחוק.", ShowCategory.Theater, 30, 140, ShowStatus.OnSale),
+            ("המדען הקטן", "מעבדת הקסם", "ניסויים מדעיים על נפלאות הבריאה, לגילאי 6–12.", ShowCategory.Kids, 25, 65, ShowStatus.OnSale),
+            ("ערב כינורות", "אנסמבל המיתרים", "רביעיית מיתרים מנגנת ניגונים ושירי קודש.", ShowCategory.Music, 33, 200, ShowStatus.OnSale),
+            ("אבא בבין הזמנים", "ר' דוד גל", "ערב הומור על אבהות, כולל וחופשות משפחתיות.", ShowCategory.StandUp, 35, 115, ShowStatus.OnSale),
+            ("רבי עקיבא", "תיאטרון הכפית", "מרועה צאן לגדול הדור: סיפור של אמונה ואהבת תורה.", ShowCategory.Theater, 38, 130, ShowStatus.OnSale),
+            ("נח והתיבה", "להקת ניצנים", "הצגה אינטראקטיבית עם בובות ענק.", ShowCategory.Kids, 40, 60, ShowStatus.OnSale),
+            ("ערב פיוטים", "האחים ברכה", "פיוטים ושירי קודש בליווי פסנתר.", ShowCategory.Music, 45, 150, ShowStatus.OnSale),
             ("מופע סוף השנה", "תיאטרון האור", "הפקה חדשה בהכנה.", ShowCategory.Theater, 60, 160, ShowStatus.Draft),
-            ("פסטיבל הצחוק", "אמנים שונים", "ערב סטנדאפ משותף — בהכנה.", ShowCategory.StandUp, 75, 130, ShowStatus.Draft),
-            ("ערב בלוז", "להקת הדלתא", "בוטל עקב מחלת הסולן.", ShowCategory.Music, 8, 150, ShowStatus.Cancelled),
-            ("שלגיה והגמדים", "תיאטרון הכפית", "הצגת ילדים קלאסית עם שירים חדשים.", ShowCategory.Kids, 50, 60, ShowStatus.OnSale)
+            ("פסטיבל ההומור", "אמנים שונים", "ערב הומור משותף, בהכנה.", ShowCategory.StandUp, 75, 130, ShowStatus.Draft),
+            ("ערב קומזיץ", "להקת נשמה", "בוטל עקב מחלת הסולן.", ShowCategory.Music, 8, 150, ShowStatus.Cancelled),
+            ("יונה בבטן הדג", "תיאטרון הכפית", "הצגת ילדים קלאסית עם שירים חדשים.", ShowCategory.Kids, 50, 60, ShowStatus.OnSale)
         };
 
         var shows = new List<Show>();
