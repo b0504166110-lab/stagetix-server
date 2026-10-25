@@ -9,7 +9,7 @@ using StageTix.Core.Options;
 namespace StageTix.Data.Seed;
 
 /// <summary>
-/// Fills an empty database with invented demo data, so the system can be used right after it starts.
+/// Fills an empty database with invented demo data (charity events, seminars and teshuva conferences), so the system can be used right after it starts.
 /// Runs only when there are no users yet, so restarting the server never duplicates data.
 /// </summary>
 public class DataSeeder(
@@ -160,31 +160,31 @@ public class DataSeeder(
 
         var data = new (string Title, string Artist, string Description, ShowCategory Category, int InDays, decimal Price, ShowStatus Status)[]
         {
-            ("ערב ניגונים — כמעט אזל!", "מקהלת שירת הלויים", "ערב ניגוני חסידות ושירי נשמה. נשארו מקומות אחרונים.", ShowCategory.Music, 5, 180, ShowStatus.OnSale),
-            ("צוחקים בכבוד", "ר' יענקל שמש", "ערב הומור נקי ומשפחתי על החיים בשכונה.", ShowCategory.StandUp, 7, 120, ShowStatus.OnSale),
-            ("יוסף ואחיו", "תיאטרון בית יעקב", "מחזה מרגש על פי פרשת וישב. לנשים ולבנות.", ShowCategory.Theater, 9, 150, ShowStatus.OnSale),
-            ("שבת המלכה", "תיאטרון הכפית", "הצגה מוזיקלית על ההכנות לשבת, לגילאי 3–8.", ShowCategory.Kids, 4, 60, ShowStatus.OnSale),
-            ("ערב חזנות", "מקהלת בית הכנסת הגדול", "תפילות ופיוטים בביצוע חזנים ומקהלה.", ShowCategory.Music, 12, 140, ShowStatus.OnSale),
-            ("אמא, יש לנו אורחים", "שרה'לה גולד", "ערב הומור לנשים על משפחה, ילדים והכנות לשבת.", ShowCategory.StandUp, 14, 110, ShowStatus.OnSale),
-            ("דונה גרציה", "תיאטרון הגשר", "סיפורה של האישה האמיצה שהצילה את אנוסי ספרד ופורטוגל.", ShowCategory.Theater, 16, 170, ShowStatus.OnSale),
-            ("שלמה המלך והדבורה", "להקת ניצנים", "מחזמר צבעוני לכל המשפחה על פי המדרש.", ShowCategory.Kids, 11, 70, ShowStatus.OnSale),
-            ("ממזרח וממערב", "תזמורת קול ישראל", "מסע מוזיקלי בין פיוטי תימן, מרוקו ואשכנז.", ShowCategory.Music, 19, 160, ShowStatus.OnSale),
-            ("לילה של סיפורים", "המגיד מירושלים", "סיפורי צדיקים מרתקים ומצחיקים לכל המשפחה.", ShowCategory.StandUp, 21, 100, ShowStatus.OnSale),
-            ("חנה ושבעת בניה", "תיאטרון האור", "דרמה עוצמתית מימי החשמונאים. לנשים ולבנות.", ShowCategory.Theater, 23, 160, ShowStatus.OnSale),
-            ("מסיבת חנוכה", "דודה חני", "שירים, ריקודים וסביבונים לקטנטנים.", ShowCategory.Kids, 18, 55, ShowStatus.OnSale),
-            ("זמירות שבת", "להקת המעיין", "זמירות השבת האהובות בעיבודים חדשים.", ShowCategory.Music, 26, 190, ShowStatus.OnSale),
-            ("הומור בעברית קלה", "מיכאל ברק", "מופע לעולים חדשים וגם לוותיקים.", ShowCategory.StandUp, 28, 90, ShowStatus.OnSale),
-            ("מגילת אסתר — המחזה", "תיאטרון הבמה הצעירה", "פורים על הבמה: תחפושות, הפתעות ושעה וחצי של צחוק.", ShowCategory.Theater, 30, 140, ShowStatus.OnSale),
-            ("המדען הקטן", "מעבדת הקסם", "ניסויים מדעיים על נפלאות הבריאה, לגילאי 6–12.", ShowCategory.Kids, 25, 65, ShowStatus.OnSale),
-            ("ערב כינורות", "אנסמבל המיתרים", "רביעיית מיתרים מנגנת ניגונים ושירי קודש.", ShowCategory.Music, 33, 200, ShowStatus.OnSale),
-            ("אבא בבין הזמנים", "ר' דוד גל", "ערב הומור על אבהות, כולל וחופשות משפחתיות.", ShowCategory.StandUp, 35, 115, ShowStatus.OnSale),
-            ("רבי עקיבא", "תיאטרון הכפית", "מרועה צאן לגדול הדור: סיפור של אמונה ואהבת תורה.", ShowCategory.Theater, 38, 130, ShowStatus.OnSale),
-            ("נח והתיבה", "להקת ניצנים", "הצגה אינטראקטיבית עם בובות ענק.", ShowCategory.Kids, 40, 60, ShowStatus.OnSale),
-            ("ערב פיוטים", "האחים ברכה", "פיוטים ושירי קודש בליווי פסנתר.", ShowCategory.Music, 45, 150, ShowStatus.OnSale),
-            ("מופע סוף השנה", "תיאטרון האור", "הפקה חדשה בהכנה.", ShowCategory.Theater, 60, 160, ShowStatus.Draft),
-            ("פסטיבל ההומור", "אמנים שונים", "ערב הומור משותף, בהכנה.", ShowCategory.StandUp, 75, 130, ShowStatus.Draft),
-            ("ערב קומזיץ", "להקת נשמה", "בוטל עקב מחלת הסולן.", ShowCategory.Music, 8, 150, ShowStatus.Cancelled),
-            ("יונה בבטן הדג", "תיאטרון הכפית", "הצגת ילדים קלאסית עם שירים חדשים.", ShowCategory.Kids, 50, 60, ShowStatus.OnSale)
+            ("ערב צדקה גדול — כמעט אזל!", "הפקות חסדי לב", "ערב התרמה חסידי לטובת משפחות נזקקות לקראת החג, עם מקהלה, סיפור מרגש וכיבוד. נשארו מקומות אחרונים.", ShowCategory.Charity, 5, 180, ShowStatus.OnSale),
+            ("כנס תשובה ארצי", "הפקות שבי נפש", "כנס חיזוק והתעוררות עם מגידי שיעור ורבנים מובילים, בליווי ניגוני תשובה.", ShowCategory.Teshuva, 7, 90, ShowStatus.OnSale),
+            ("סמינר הורים: חינוך בדור הדיגיטלי", "מכון דרך הבית", "סמינר מעשי להורים ולמחנכים עם יועצים חינוכיים ורבנים. הכניסה לגברים.", ShowCategory.Seminar, 9, 120, ShowStatus.OnSale),
+            ("ערב צדקה לנשים — בת מלך", "הפקות פנינים", "ערב התרמה לנשים לטובת כלות עניות, עם הרצאה מרכזית, הופעה מוזיקלית וארוחה קלה.", ShowCategory.Charity, 4, 150, ShowStatus.OnSale),
+            ("הכנס השנתי לימי הרחמים", "הפקות קול הלב", "ערב התעוררות לקראת ימי הסליחות: שיעורים, פיוטים ותפילה משותפת.", ShowCategory.Teshuva, 12, 70, ShowStatus.OnSale),
+            ("סמינר שלום בית", "מרכז בית נאמן", "סדנת העשרה לזוגות ולמתחתנים עם מדריכי שלום בית מוסמכים. לנשים בלבד.", ShowCategory.Seminar, 14, 110, ShowStatus.OnSale),
+            ("ערב התרמה לישיבה הקדושה", "הפקות תורה ועבודה", "ערב עם גדולי מרביצי התורה, מנחה מוכר והופעת מקהלת ילדים לטובת מוסדות התורה.", ShowCategory.Charity, 16, 200, ShowStatus.OnSale),
+            ("כנס תשובה לנוער", "הפקות אור חדש", "כנס מיוחד לבחורי ישיבות ולנוער, עם סיפורי חזרה בתשובה ומוזיקה.", ShowCategory.Teshuva, 11, 40, ShowStatus.OnSale),
+            ("סמינר פרנסה בכבוד", "מכון נתיב הפרנסה", "יום עיון לבעלי עסקים קטנים ומחפשי עבודה עם יועצי עסקים ורבנים, כולל נטוורקינג.", ShowCategory.Seminar, 19, 100, ShowStatus.OnSale),
+            ("ערב חסד לחולים", "ארגון ביקור חולים רחמים", "ערב התרמה לטובת מימון ציוד רפואי ולינה לבני משפחות חולים.", ShowCategory.Charity, 21, 160, ShowStatus.OnSale),
+            ("כנס ההתעוררות לפני הימים הנוראים", "הפקות שערי תשובה", "כנס ענק עם מגידי שיעור מהשורה הראשונה, מוזיקה מלווה ותפילת נעילה.", ShowCategory.Teshuva, 23, 80, ShowStatus.OnSale),
+            ("סמינר טהרת המשפחה", "מכון נר ישראל", "סמינר הדרכה ועיון לכלות ולנשים נשואות עם מורות הלכה ויועצות מוסמכות.", ShowCategory.Seminar, 18, 90, ShowStatus.OnSale),
+            ("גאלה לטובת יתומים", "קרן אבות ובנים", "גאלה חגיגית עם קטעי הסרטה, חזנים ומקהלה לטובת תמיכה במשפחות יתומים.", ShowCategory.Charity, 26, 250, ShowStatus.OnSale),
+            ("כנס בין אדם למקום", "הפקות חזון הלב", "יום חיזוק לגברים: שיעורים, התבודדות ותפילה בציבור.", ShowCategory.Teshuva, 28, 60, ShowStatus.OnSale),
+            ("סמינר מחנכים: חינוך מתוך אהבה", "מכון חינוך בדרך", "יום עיון לגננות ולמלמדים על כלי עבודה חינוכיים ועל התמודדות עם ילדים מאתגרים.", ShowCategory.Seminar, 30, 130, ShowStatus.OnSale),
+            ("ערב תמיכה בכולל אברכים", "קרן תורתו אומנותו", "ערב עם סיפורי יושבי אוהל, מקהלה ושיעור מרכזי לטובת כוללי אברכים.", ShowCategory.Charity, 25, 170, ShowStatus.OnSale),
+            ("כנס תשובה לנשים", "הפקות לבבות", "כנס חיזוק לנשים בנושא שמירת הלשון, צניעות ואמונה, עם דוברות מובילות.", ShowCategory.Teshuva, 33, 70, ShowStatus.OnSale),
+            ("סמינר שידוכים והיכרות", "מרכז בנין עדי עד", "סמינר ללמידת תהליך השידוך עם שדכנים ורבנים. לגברים ולנשים בנפרד.", ShowCategory.Seminar, 35, 100, ShowStatus.OnSale),
+            ("ערב קמחא דפסחא", "ארגון חסדי אברהם", "ערב התרמה להפצת סלי מזון לנזקקים לקראת החג, בהשתתפות רבנים וחזנים.", ShowCategory.Charity, 38, 140, ShowStatus.OnSale),
+            ("כנס ההתחזקות הגדול", "הפקות שב אל לבך", "יום שלם של שיעורים וחיזוק בנושא עבודת המידות וקבלות לשנה החדשה.", ShowCategory.Teshuva, 40, 50, ShowStatus.OnSale),
+            ("סמינר בריאות הנפש", "מכון נפש חיה", "יום עיון עם פסיכולוגים ורבנים בנושא התמודדות עם לחץ ומשברים בחברה החרדית.", ShowCategory.Seminar, 45, 150, ShowStatus.OnSale),
+            ("ערב צדקה סוף שנה", "הפקות חסדי לב", "ערב התרמה חגיגי, בהכנה.", ShowCategory.Charity, 60, 190, ShowStatus.Draft),
+            ("כנס תשובה ארצי — חורף", "הפקות שבי נפש", "כנס חיזוק חורפי, בהכנה.", ShowCategory.Teshuva, 75, 90, ShowStatus.Draft),
+            ("סמינר ראשי ישיבות", "מכון דרך הבית", "בוטל עקב מחלת המרצה הראשי.", ShowCategory.Seminar, 8, 120, ShowStatus.Cancelled),
+            ("ערב צדקה לטובת בית כנסת", "הפקות פנינים", "ערב התרמה לשיפוץ בית הכנסת השכונתי, עם חזן ומקהלה.", ShowCategory.Charity, 50, 120, ShowStatus.OnSale)
         };
 
         var shows = new List<Show>();

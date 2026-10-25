@@ -39,7 +39,7 @@ public class ShowServiceTests
         Artist = "Artist",
         StartsAt = startsAt,
         TicketPrice = 80,
-        Category = ShowCategory.Theater
+        Category = ShowCategory.Seminar
     };
 
     private void ShowExists(Show show)

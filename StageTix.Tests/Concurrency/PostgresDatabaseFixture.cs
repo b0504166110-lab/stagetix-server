@@ -77,7 +77,7 @@ public sealed class PostgresDatabaseFixture : IAsyncLifetime
             Artist = "Test",
             StartsAt = DateTime.UtcNow.AddDays(10),
             TicketPrice = 50,
-            Category = ShowCategory.Music,
+            Category = ShowCategory.Charity,
             Status = ShowStatus.OnSale,
             CreatedAt = DateTime.UtcNow
         };

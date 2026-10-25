@@ -36,7 +36,7 @@ public static class TestData
             Artist = "Test Artist",
             StartsAt = startsAt ?? FixedTimeProvider.DefaultNow.AddDays(10),
             TicketPrice = price,
-            Category = ShowCategory.Music,
+            Category = ShowCategory.Charity,
             Status = status
         };
         show.GenerateSeats(rows, seatsPerRow);

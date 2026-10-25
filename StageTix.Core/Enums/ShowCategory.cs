@@ -1,10 +1,9 @@
 namespace StageTix.Core.Enums;
 
-/// <summary>The kind of show.</summary>
+/// <summary>The kind of event.</summary>
 public enum ShowCategory
 {
-    Music,
-    StandUp,
-    Theater,
-    Kids
+    Charity,
+    Seminar,
+    Teshuva
 }
